@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="testapp">
+<head>
+    <title>APP</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="src/css/mdb.min.css">
+    <link rel="stylesheet" type="text/css" href="src/css/material_icon.css">
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" type="text/css" href="src/css/main.css">
+	
+    <script type="text/javascript" src="src/js/jquery.min.js"></script>
+    <script type="text/javascript" src="src/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="src/js/popper.min.js"></script>
+    <script type="text/javascript" src="src/js/angular.min.js"></script>
+    <script type="text/javascript" src="src/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="src/js/bootstrap-datepicker.min.js"></script>
+	
+    <script type="text/javascript" src="src/js/mdb.min.js"></script>
+    <script type="text/javascript" src="src/js/angular-sanitize.min.js" defer></script>
+    <script type="text/javascript" src="src/js/app.js"></script>
+    <script type="text/javascript" src="src/js/factory.js"></script>
+    <script type="text/javascript" src="src/js/service.js"></script>
+    <script type="text/javascript" src="src/js/directiv.js"></script>
+    <script type="text/javascript" src="src/js/main_controller.js"></script>
+    
+</head>
+</head>
+<body>
+	<main  ng-controller="main_con" class="row main_container">
+		<header class="row records_header">
+			<i class="material-icons icon-image-preview app_icon">dashboard</i>	
+			<svg width="200" style="margin: 8px 0;float: left;" height="28">
+					     
+					       <text y="23" id="daab" style="font-size: 17px; fill: rgb(91, 159, 192);font-weight: 400;" x="7">User Management</text> 
+			   </svg>
+			<button ng-click="create_new_user()"  type="button" class="btn btn-ins waves-effect waves-light float-right add_btn"><i class="material-icons icon-image-preview">add</i>Add User</button>
+			
+        	</header>
+        	<section class="row records_body" ng-class="{resize_records_body:rec_act}">
+		    <table class="table table-hover rec_table">
+                	<thead><tr><th>#</th>  <th ng-repeat="ech_usr_hdr in rec_hdr track by $index " ng-bind-html="ech_usr_hdr['s']" ></th>
+			<th >Actions</th>
+			</tr></thead>
+                <tbody>
+		   <tr class="records_row" ng-init="p_idx = $index"  ng-class="{'act_row':act_row == ech_usr_row['id']}"  ng-repeat="ech_usr_row in all_data_record track by $index ">
+			<td  class=" records_col" ng-bind-html="$index+1"></td>
+			<td   ng-click="row_event('data',ech_usr_row,p_idx,$index)"  ng-bind-html="ech_usr_row[ech_usr_field['k']]" class=" records_col"  ng-show="ech_usr_field != 'id'"  ng-repeat="ech_usr_field  in rec_hdr">
+			</td>
+			<td  class=" records_col" >
+				<i class="material-icons icon-image-preview edit" ng-click="row_event('edit',ech_usr_row,p_idx,$index)" >edit</i>
+				<i class="material-icons icon-image-preview delete_outline" ng-click="row_event('delete',ech_usr_row,p_idx,$index)" >delete_outline</i>
+			</td>
+		   </tr>
+		</tbody>
+		</table>
+        	</section>
+		<section ng-show="rec_act" class="row records_manage">
+			<form class="login100-form validate-form ng-pristine ng-invalid ng-invalid-required" role="form">
+					<span class="close_records_manage" ng-click="rec_act = !rec_act"><i class="material-icons icon-image-preview">close</i></span>
+	        			<span class="login100-form-avatar">
+						<i class="material-icons icon-image-preview" ng-show="rec_act=='edit'"  >how_to_reg</i>
+						<i class="material-icons icon-image-preview" ng-show="rec_act=='add'" >person_add</i>
+					</span>
+					<span class="login100-form-title p-b-70"></span>
+					
+
+					<div  class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="UserName">
+						<input class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" name="username" type="text" ng-model="reset_user_details['userName']"  required="" autofocus="">
+						<span class="focus-input100" data-placeholder="UserName *"></span>
+					</div>
+
+					<div  class="wrap-input100 validate-input m-b-50" data-validate="GivenName">
+						<input class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" type="text" required=""  ng-model="reset_user_details['givenName']" name="">
+						<span class="focus-input100" data-placeholder="GivenName"></span>
+					</div>
+					 <div  class="wrap-input100 validate-input m-b-50" data-validate="SurName">
+                                                <input class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" type="text" required="" id="txtuser_passwd" ng-model="reset_user_details['surName']" name="">
+                                                <span class="focus-input100" data-placeholder="SurName"></span>
+                                        </div>
+
+					 <div class="wrap-input100 validate-input m-b-50" data-validate="DOB">
+                                                <input ng-readonly="true" class="datepicker input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched " type="text" required="" id="txtuser_passwd" ng-model="reset_user_details['DOB']"  name="">
+                                                <span class="focus-input100" data-placeholder="DOB"></span>
+                                        </div>
+
+
+					<div  class="container-login100-form-btn">
+						
+						<button ng-click="update_user_details()" ng-show="rec_act=='edit'" type="button" class="btn btn-ins waves-effect waves-light">Update</button>
+						<button ng-click="create_user_details()" ng-show="rec_act=='add'" type="button" class="btn btn-ins waves-effect waves-light"> Create </button> </div>
+				</form>	
+		</section>
+	</main>
+	<div pop-tab=""></div>
+
+</body>   
+</html>

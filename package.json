@@ -1,0 +1,18 @@
+{
+  "name": "TEST-APP",
+  "description": "User  Management System",
+  "author": "Mr Manikandan G",
+  "license": "MIT",
+  "dependencies": {},
+  "repository": {},
+  "devDependencies": {
+    "async": "^3.1.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "http": "0.0.0",
+    "mysql": "^2.18.1"
+  }
+}
