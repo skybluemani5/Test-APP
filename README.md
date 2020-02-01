@@ -2,19 +2,19 @@ This is a User Managemet APP with REST services
 
 The app managing user data with  MySql Database.
 
+APP INFO:
+	Backend Middleware:
+	     > express
 
-Backend Middleware:
-     > express
+	Backend Template engine:
+	     > ejs view engine
 
-Backend Template engine:
-     > ejs view engine
+	FrontEnd Application Framework:
+	     > AngularJS
 
-FrontEnd Application Framework:
-     > AngularJS
-
-FrontEnd CSS Framework:
-     > Bootstrap 4
-     > MDBootstrap
+	FrontEnd CSS Framework:
+	     > Bootstrap 4
+	     > MDBootstrap
 
 How to run User Managemet APP :
 
