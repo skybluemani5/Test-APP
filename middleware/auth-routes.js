@@ -125,31 +125,45 @@ function routes(app, db_pool, bodyParser, async) {
     app.patch('/user/:id', function(req, res) {
         var record_id = req.params.id;
         var u_data = JSON.parse(req.body.i_data) || {};
-        var field_kv = [];
-        if ('DOB' in u_data) {
-            field_kv.push('DOB=STR_TO_DATE("' + u_data['DOB'] + '", "%d-%m-%Y")');
-            delete u_data['DOB']
-        }
-        for (var fk in u_data) {
-            field_kv.push(fk + '="' + u_data[fk] + '"')
-        }
-        var data = {
-            query: "update  userObj set " + field_kv.join(',') + " where id='" + record_id + "'",
-            connection: db_pool['comm'],
-        }
-        query_runner(data, function(err, result) {
-            var msg = "Error";
-            var data = {};
-            if (err) {
-                data = err;
-            } else if (result.affectedRows > 0) {
-                msg = "Success";
-            }
-            res.status(200).send({
-                'status': msg,
-                'data': data
+        var usr_name = u_data['userName'] || "";
+        async.waterfall([function(callback) {
+            user_validation(usr_name, function(usr_record) {
+                        callback(null,usr_record)
             })
-        });
+        }, function(usr_record, callback) {
+              if((usr_record.length > 0) && (usr_record[0]['id'] != record_id) ){
+                      res.status(200).send({'status': 'Error', 'data': data ,'info':'User Name Already Exist.'})
+                      callback();
+                      return;
+              }
+                var field_kv = [];
+                if ('DOB' in u_data) {
+                    field_kv.push('DOB=STR_TO_DATE("' + u_data['DOB'] + '", "%d-%m-%Y")');
+                    delete u_data['DOB']
+                }
+                for (var fk in u_data) {
+                    field_kv.push(fk + '="' + u_data[fk] + '"')
+                }
+                var data = {
+                    query: "update  userObj set " + field_kv.join(',') + " where id='" + record_id + "'",
+                    connection: db_pool['comm'],
+                }
+                query_runner(data, function(err, result) {
+                    var msg = "Error";
+                    var data = {};
+                    if (err) {
+                        data = err;
+                    } else if (result.affectedRows > 0) {
+                        msg = "Success";
+                    }
+                    res.status(200).send({
+                        'status': msg,
+                        'data': data
+                    })
+                });
+         }], function(err) {
+                      
+          });
 
     })
     app.delete('/user/:id', function(req, res) {
