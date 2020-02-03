@@ -1,5 +1,6 @@
 app.controller('main_con',['$scope','$rootScope','$timeout','testService','testpop',function ($scope,$rootScope,$timeout,testService,testpop){
-	$scope.rec_hdr=[{'s':'UserName','k':'userName'},{'s':'GivenName','k':'givenName'},{'s':'SurName','k':'surName'},{'s':'DOB','k':'DOB'}];
+	$scope.rec_hdr=[{'s':'UserName','k':'userName','type':'text' ,'pcls':{'m-t-85':true, 'm-b-35':true}},{'s':'GivenName','k':'givenName','type':'text'},{'s':'SurName','k':'surName','type':'text'},{'s':'DOB','scls':{'datepicker':true},'k':'DOB','type':'text','ro':true}];
+
 	$scope.init_call = function(){
 		  $('.datepicker').datepicker({format: "dd-mm-yyyy"});
 		 $scope.retrive_all_data();
@@ -88,5 +89,7 @@ app.controller('main_con',['$scope','$rootScope','$timeout','testService','testp
 		$scope.reset_user_details= {};
 		$scope.rec_hdr.forEach(function(e_hdr){  $scope.reset_user_details[e_hdr['k']] = '' })
 	}
-	$scope.init_call()
+	$timeout(function (){
+                $scope.init_call()
+        })
 }])
