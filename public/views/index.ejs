@@ -72,32 +72,14 @@
 						<i class="material-icons icon-image-preview" ng-show="rec_act=='add'" >person_add</i>
 					</span>
 					<span class="login100-form-title p-b-70"></span>
-					
-
-					<div  class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="UserName">
-						<input class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" name="username" type="text" ng-model="reset_user_details['userName']"  required="" autofocus="">
-						<span class="focus-input100" data-placeholder="UserName *"></span>
-					</div>
-
-					<div  class="wrap-input100 validate-input m-b-50" data-validate="GivenName">
-						<input class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" type="text" required=""  ng-model="reset_user_details['givenName']" name="">
-						<span class="focus-input100" data-placeholder="GivenName"></span>
-					</div>
-					 <div  class="wrap-input100 validate-input m-b-50" data-validate="SurName">
-                                                <input class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" type="text" required="" id="txtuser_passwd" ng-model="reset_user_details['surName']" name="">
-                                                <span class="focus-input100" data-placeholder="SurName"></span>
+					<div style="margin-top: 7%;"  ng-class="ech_usr_hdr['pcls']"  ng-readonly="{{ech_usr_hdr['ro']}}"   ng-repeat="ech_usr_hdr in rec_hdr track by $index"   class="wrap-input100 validate-input" data-validate="">
+                                                <input ng-class="ech_usr_hdr['scls']"  class="input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" name="" type="{{ech_usr_hdr['type']}}" ng-model="reset_user_details[ech_usr_hdr['k']]"  required="" autofocus="">
+                                                <span class="focus-input100" data-placeholder="{{ech_usr_hdr['s']}}"></span>
                                         </div>
-
-					 <div class="wrap-input100 validate-input m-b-50" data-validate="DOB">
-                                                <input ng-readonly="true" class="datepicker input100 ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched " type="text" required="" id="txtuser_passwd" ng-model="reset_user_details['DOB']"  name="">
-                                                <span class="focus-input100" data-placeholder="DOB"></span>
-                                        </div>
-
-
 					<div  class="container-login100-form-btn">
-						
 						<button ng-click="update_user_details()" ng-show="rec_act=='edit'" type="button" class="btn btn-ins waves-effect waves-light">Update</button>
-						<button ng-click="create_user_details()" ng-show="rec_act=='add'" type="button" class="btn btn-ins waves-effect waves-light"> Create </button> </div>
+						<button ng-click="create_user_details()" ng-show="rec_act=='add'" type="button" class="btn btn-ins waves-effect waves-light"> Create </button> 
+					</div>
 				</form>	
 		</section>
 	</main>
